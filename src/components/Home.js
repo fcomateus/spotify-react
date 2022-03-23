@@ -19,8 +19,6 @@ function Home(){
                         <Link to='/faq'> 
                         <button type="button" className="btn btn-outline-secondary btn-lg px-4">FAQ</button>
                         </Link>
-                        <a href="./FAQ.html"></a>
-                    
                     </div>
                 </div>
             </div>
