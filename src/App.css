@@ -1,0 +1,26 @@
+#logo {
+    height: auto;
+    margin-top: 0;
+}
+
+#content-form-button {
+    max-width: 100%;
+    max-height: 100%;
+    text-align: center;
+}
+
+.h1 {
+    padding: 10px;
+}
+
+#headerlogo {
+    height: min-content;
+    width: 150px;
+}
+
+section {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+}
