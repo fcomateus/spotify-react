@@ -6,7 +6,7 @@ function Footer() {
     return (
         <section
             className='footer bg-dark navbar-fixed-bottom'
-            style={{ marginBottom: 0, position: 'absolute' }}
+            style={{ marginBottom: 0, position: 'relative' }}
         >
             
             <div className='container'>

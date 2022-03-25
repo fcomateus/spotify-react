@@ -24,3 +24,11 @@ section {
     width: 100%;
     margin: 0;
 }
+
+.nav-link:hover {
+    color: rgb(29, 185, 84) !important;
+}
+
+.nav-link {
+    color: white !important;
+}

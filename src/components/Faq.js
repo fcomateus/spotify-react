@@ -47,9 +47,9 @@ function faq(){
                 </div>
                 <div id="collapseThree" className="collapse" data-bs-parent="#accordion">
                     <div className="card-body">
-                        Local Files are music files stored on your computer that can be played through the Spotify app.
-                        They’re put into the Spotify app by selecting Sources for Local Files from within the app’s
-                        Settings menu.
+                        Arquivos locais são arquivos de música armazenados em seu computador que podem ser reproduzidos pelo aplicativo Spotify.
+                        Eles são colocados no aplicativo Spotify selecionando Sources for Local Files de dentro do aplicativo.
+                        Menu de configurações.
                     </div>
                 </div>
             </div>
@@ -75,18 +75,15 @@ function faq(){
                 </div>
                 <div id="collapseFive" className="collapse" data-bs-parent="#accordion">
                     <div className="card-body">
-                        Shuffling is the easiest way to get a random mix of songs. Here's how to toggle Shuffle on or
-                        off for your devices.
-                        <br/>
-                        To turn on Shuffle in desktop, hit the crossed arrows icon just left of the back skip button in
-                        the Now Playing bar. It'll be highlighted green with a green dot underneath if it's on.
+                        Embaralhar é a maneira mais fácil de obter uma mistura aleatória de músicas. Veja como ativar ou
+                        desligado para seus dispositivos.
                         <br/>
                         <img src="https://community.spotify.com/t5/image/serverpage/image-id/90410iC687A12378EC09F9/image-size/medium?v=v2"
                             alt=""
                             width={400}/>
 
                         <br/>
-                        To turn it off, just click it again so it appears gray.
+                        Para desativá-lo, basta clicar nele novamente para que fique cinza.
 
                     </div>
                 </div>
@@ -99,15 +96,15 @@ function faq(){
                 </div>
                 <div id="collapseSix" className="collapse" data-bs-parent="#accordionSix">
                     <div className="card-body">
-                        You should be able to find any user in Spotify using Search, but sometimes this workaround can
-                        be helpful.
+                        Você deve conseguir encontrar qualquer usuário no Spotify usando a Pesquisa, mas às vezes essa solução alternativa pode
+                         seja útil.
                         <br/>
-                        If you can’t find another user just by typing their name, it’s likely because they don’t have a
-                        display name. If you know their username, try searching spotify:user: followed by their Spotify
-                        username instead (with no spaces).
-                        <br/>
-                        If you connect your Spotify account to Facebook, you can view a recommended list of friends and
-                        featured people to follow.
+                         Se você não conseguir encontrar outro usuário apenas digitando o nome dele, é provável que ele não tenha um
+                         Nome em Exibição. Se você souber o nome de usuário, tente pesquisar spotify:user: seguido pelo Spotify
+                         nome de usuário em vez disso (sem espaços).
+                         <br/>
+                         Se você conectar sua conta do Spotify ao Facebook, poderá ver uma lista recomendada de amigos e
+                         pessoas em destaque a seguir.
                     </div>
                 </div>
             </div>
