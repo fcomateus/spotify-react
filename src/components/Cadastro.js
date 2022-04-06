@@ -1,162 +1,258 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 
 function Cadastro() {
-    return (
-        <div id='content-form-button'>
-            <h2 class='h2'>
-                Inscreva-se e comece a escutar músicas com alta qualidade.
-            </h2>
+  const usuarioVazio = {
+    nome: '',
+    sobrenome: '',
+    dataDeNascimento: '',
+    genero: '',
+    email: '',
+    emailConf: '',
+    senha: '',
+    plano: 0,
+  };
 
-            <div class='container mt-3'>
-                <form style={{ marginBottom: '0.5em' }}>
-                    <div class='mb-3'>
-                        <label for='email'>Digite seu e-mail</label>
-                        <div class='row'>
-                            <div class='col'></div>
-                            <input
-                                class='form-control col'
-                                type='email'
-                                name='email'
-                                id='email'
-                                placeholder='Digite seu e-mail'
-                            />
-                            <div class='col'></div>
-                        </div>
-                    </div>
+  const [usuario, setUsuario] = useState(usuarioVazio);
+  const [validado, setValidado] = useState(false);
 
-                    <div class='mb-3'>
-                        <label for='reemail'>Digite seu email novamente:</label>
-                        <div class='row'>
-                            <div class='col'></div>
-                            <input
-                                type='email'
-                                class='form-control col'
-                                id='reemail'
-                                placeholder='Digite seu e-mail novamente'
-                                name='reemail'
-                            />
-                            <div class='col'></div>
-                        </div>
-                    </div>
+  useEffect(() => {
+    if (Object.keys(usuario).some((campo) => !usuario[campo])) {
+      setValidado(true);
+    } else {
+      setValidado(false);
+    }
+  }, [usuario]);
 
-                    <div class='mb-3'>
-                        <label for='name'>Qual seu nome?</label>
-                        <div class='row'>
-                            <div class='col'></div>
-                            <input
-                                type='text'
-                                class='form-control col'
-                                name='name'
-                                id='name'
-                                placeholder='Informe seu nome'
-                            />
-                            <div class='col'></div>
-                        </div>
-                    </div>
+  const handleChange = (e) => {
+    const campo = e.target.name;
+    const valor = e.target.value;
+    setUsuario({ ...usuario, [campo]: valor });
+  };
 
-                    <label>Qual sua data de nascimento?</label>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setUsuario(usuarioVazio);
+  };
 
-                    <div class='mb-3 row'>
-                        <div class='col'></div>
-                        <div class='col'></div>
-                        <div class='col'></div>
-                        <div class='col'></div>
+  const comparaEmail = () => {
+    if (usuario.email && usuario.email !== usuario.emailConf) {
+      return false;
+    }
+    return true;
+  };
+
+  return (
+    <section className='gradient-custom'>
+      <div className='container py-5 h-100'>
+        <div className='row justify-content-center align-items-center h-100'>
+          <div className='col-12 col-lg-9 col-xl-7'>
+            <div
+              className='card shadow-2-strong card-registration'
+              style={{ borderRadius: '15px' }}
+            >
+              <div className='card-body p-4 p-md-5'>
+                <h3 className='mb-4 pb-2 pb-md-0 mb-md-5'>
+                  Inscreva-se e escute músicas com alta qualidade.
+                </h3>
+                <form onSubmit={handleSubmit}>
+                  <div className='row'>
+                    <div className='col-md-6 mb-4'>
+                      <div className='form-outline'>
                         <input
-                            class='form-control col'
-                            type='number'
-                            name='day'
-                            id='day'
-                            inputmode='numeric'
-                            maxlenght='2'
-                            max='31'
-                            min='1'
-                            placeholder='DD'
+                          type='text'
+                          id='nome'
+                          name='nome'
+                          value={usuario.nome}
+                          className='form-control form-control-lg'
+                          onChange={handleChange}
                         />
-                        <select name='mes' id='mes' class='form-select col'>
-                            <option value='0' disabled selected>
-                                Mês
-                            </option>
-                            <option value='1'>Janeiro</option>
-                            <option value='2'>Fevereiro</option>
-                            <option value='3'>Março</option>
-                            <option value='4'>Abril</option>
-                            <option value='5'>Maio</option>
-                            <option value='6'>Junho</option>
-                            <option value='7'>Julho</option>
-                            <option value='8'>Agosto</option>
-                            <option value='9'>Setembro</option>
-                            <option value='10'>Outubro</option>
-                            <option value='11'>Novembro</option>
-                            <option value='12'>Dezembro</option>
-                        </select>
+                        <label className='form-label' htmlFor='nome'>
+                          Nome
+                        </label>
+                      </div>
+                    </div>
+                    <div className='col-md-6 mb-4'>
+                      <div className='form-outline'>
                         <input
-                            class='form-control col'
-                            type='number'
-                            name='year'
-                            id='year'
-                            inputmode='numeric'
-                            maxlength='4'
-                            max='2022'
-                            min='1900'
-                            placeholder='AAAA'
+                          type='text'
+                          id='sobrenome'
+                          name='sobrenome'
+                          value={usuario.sobrenome}
+                          className='form-control form-control-lg'
+                          onChange={handleChange}
                         />
-                        <div class='col'></div>
-                        <div class='col'></div>
-                        <div class='col'></div>
-                        <div class='col'></div>
+                        <label className='form-label' htmlFor='sobrenome'>
+                          Sobrenome
+                        </label>
+                      </div>
                     </div>
+                  </div>
 
-                    <div class='mb-3'>
-                        <label>Qual o seu gênero?</label>
-                        <br />
-                        <label for='masc'>Masculino</label>
-                        <input type='radio' name='gender' id='masc' />
-                        <label for='fem'>Feminino</label>
-                        <input type='radio' name='gender' id='fem' />
-                        <label for='null'>Neutro</label>
-                        <input type='radio' name='gender' id='null' />
-                    </div>
-
-                    <div class='mb-3'>
+                  <div className='row'>
+                    <div className='col-md-6 mb-4 d-flex align-items-center'>
+                      <div className='form-outline datepicker w-100'>
                         <input
-                            type='button'
-                            style={{
-                                backgroundColor: '#1db954',
-                                borderColor: 'green',
-                            }}
-                            value='Entre com sua conta do Google'
-                            class='btn btn-primary btn-md'
+                          type='date'
+                          className='form-control form-control-lg'
+                          id='dataDeNascimento'
+                          name='dataDeNascimento'
+                          value={usuario.dataDeNascimento}
+                          onChange={handleChange}
                         />
+                        <label
+                          htmlFor='dataDeNascimento'
+                          className='form-label'
+                          onChange={handleChange}
+                        >
+                          Data de Nascimento
+                        </label>
+                      </div>
                     </div>
-                    <div class='mb-3'>
+                    <div className='col-md-6 mb-4'>
+                      <h6 className='mb-2 pb-1'>Gênero:</h6>
+
+                      <div className='form-check form-check-inline'>
                         <input
-                            type='button'
-                            style={{
-                                backgroundColor: '#1db954',
-                                borderColor: 'green',
-                            }}
-                            value='Entre com sua conta do Facebook'
-                            class='btn btn-primary btn-md'
+                          onChange={handleChange}
+                          className='form-check-input'
+                          type='radio'
+                          name='genero'
+                          id='genFeminino'
+                          value='feminino'
                         />
+                        <label
+                          className='form-check-label'
+                          htmlFor='genFeminino'
+                        >
+                          Feminino
+                        </label>
+                      </div>
+                      <div className='form-check form-check-inline'>
+                        <input
+                          onChange={handleChange}
+                          className='form-check-input'
+                          type='radio'
+                          name='genero'
+                          id='genMasculino'
+                          value='masculino'
+                        />
+                        <label
+                          className='form-check-label'
+                          htmlFor='genMasculino'
+                        >
+                          Masculino
+                        </label>
+                      </div>
+                      <div className='form-check form-check-inline'>
+                        <input
+                          onChange={handleChange}
+                          className='form-check-input'
+                          type='radio'
+                          name='genero'
+                          id='genOutro'
+                          value='outro'
+                        />
+                        <label className='form-check-label' htmlFor='genOutro'>
+                          Outro
+                        </label>
+                      </div>
                     </div>
+                  </div>
 
-                    <button
-                        type='submit'
-                        style={{
-                            backgroundColor: '#1db954',
-                            borderColor: 'green',
-                        }}
-                        class='btn btn-primary'
-                    >
-                        Inscrever-se
-                    </button>
+                  <div className='row'>
+                    <div className='col-md-6 mb-4 pb-2'>
+                      <div className='form-outline'>
+                        <input
+                          type='email'
+                          id='email'
+                          name='email'
+                          className='form-control form-control-lg'
+                          value={usuario.email}
+                          onChange={handleChange}
+                        />
+                        <label className='form-label' htmlFor='email'>
+                          Email
+                        </label>
+                      </div>
+                    </div>
+                    <div className='col-md-6 mb-4 pb-2'>
+                      <div className='form-outline'>
+                        <input
+                          type='email'
+                          id='emailConf'
+                          name='emailConf'
+                          className={`${
+                            comparaEmail() ? '' : 'form-invalid'
+                          } form-control form-control-lg`}
+                          value={usuario.emailConf}
+                          onChange={handleChange}
+                        />
+                        <label className='form-label' htmlFor='emailConf'>
+                          Confirmação de Email
+                        </label>
+                      </div>
+                    </div>
+                  </div>
 
-                    <br />
-                    <br />
+                  <div className='row'>
+                    <div className='col-md-6 mb-4 pb-2'>
+                      <div className='form-outline'>
+                        <input
+                          type='password'
+                          id='senha'
+                          name='senha'
+                          value={usuario.senha}
+                          className='form-control form-control-lg'
+                          onChange={handleChange}
+                        />
+                        <label className='form-label' htmlFor='senha'>
+                          Crie uma senha
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='row'>
+                    <div className='col-12'>
+                      <label className='form-label select-label'>
+                        Escolha uma opção de plano
+                      </label>
+                      <br />
+                      <select
+                        className='select form-control-lg'
+                        name='plano'
+                        value={usuario.plano}
+                        onChange={handleChange}
+                      >
+                        <option value='0' disabled>
+                          Tipo de plano
+                        </option>
+                        <option value='1'>Free</option>
+                        <option value='2'>Premium</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className='mt-4 pt-2'>
+                    <input
+                      className='btn btn-primary btn-lg'
+                      type='submit'
+                      value='Cadastrar'
+                      style={{
+                        backgroundColor: '#1db954',
+                        borderColor: 'green',
+                      }}
+                      disabled={validado}
+                    />
+                  </div>
                 </form>
+              </div>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </section>
+  );
 }
 
 export default Cadastro;
