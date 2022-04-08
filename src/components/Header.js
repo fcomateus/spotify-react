@@ -31,6 +31,12 @@ function Header() {
                 Cadastro
             </Link>
           </li>
+
+          <li>
+            <Link to="/playlists" className="nav-link" style={{ textDecoration: "none"}}>
+                Playlists
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

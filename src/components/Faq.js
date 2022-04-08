@@ -106,7 +106,7 @@ function faq(){
                          Se você conectar sua conta do Spotify ao Facebook, poderá ver uma lista recomendada de amigos e
                          pessoas em destaque a seguir.
                     </div>
-                </div>
+                  </div>
             </div>
         </div>
     </div>
