@@ -43,3 +43,14 @@ section {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
     0 0 8px rgba(255, 0, 0, 0.6);
 }
+
+/* #capa:hover{
+    position:relative;
+    top:-35px;
+    left:-50px;
+    width:350px;
+    height:350px;
+    padding-bottom: 0px;
+    display:block; 
+    z-index:999; 
+}*/
