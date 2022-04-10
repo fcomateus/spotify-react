@@ -4,6 +4,8 @@ import Home from './components/Home';
 import FAQ from './components/Faq';
 import Cadastro from './components/Cadastro';
 import PlaylistMock from './components/PlaylistMock';
+
+import Song from './components/Song';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
@@ -19,6 +21,7 @@ function App() {
         <Route path='/faq' element={<FAQ />} />
         <Route path='/cadastro' element={<Cadastro />} />
         <Route path='/playlists' element={<PlaylistMock />} />
+        <Route path='/song' element={<Song />} />
       </Routes>
 
       <Footer />

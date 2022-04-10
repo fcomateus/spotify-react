@@ -54,3 +54,8 @@ section {
     display:block; 
     z-index:999; 
 }*/
+
+#footer {
+    position: fixed;
+    margin-bottom: 0;
+}
