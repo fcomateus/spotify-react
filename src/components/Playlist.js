@@ -4,17 +4,13 @@ import playlists from '../data/playlistsMock';
 function Playlist() {
   const { id } = useParams();
 
-  return (
-    <div>
-      {playlists.map((playlist) => {
-        if (playlist.id == parseInt(id)) {
-          playlist.musicas.map((musica) => (
-            <audio controls src={musica.audio} />
-          ));
-        }
-      })}
-    </div>
-  );
+  return playlists
+    .filter((playlist) => playlist.id == id)
+    .map((playlist) =>
+      playlist.musicas.map((musica) => (
+        <audio key={musica.id} controls src={musica.audio} />
+      ))
+    );
 }
 
 export default Playlist;

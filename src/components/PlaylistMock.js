@@ -12,7 +12,7 @@ export default function PlaylistMock() {
         <div className='row row-cols-4 m-0'>
           {playlistsMock.map((playlist) => {
             return (
-              <div className='col pb-4 px-2 m-0'>
+              <div className='col pb-4 px-2 m-0' key={playlist.id}>
                 <Link to={`/playlists/${playlist.id}`}>
                   <img
                     // id="capa"
