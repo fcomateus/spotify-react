@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Playlist from './components/Playlist';
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
         <Route path='/faq' element={<FAQ />} />
         <Route path='/cadastro' element={<Cadastro />} />
         <Route path='/playlists' element={<PlaylistMock />} />
-        <Route path='/song' element={<Song />} />
+        <Route path='/playlists/:id' element={<Playlist />} />
+        {/* <Route path='/song' element={<Song />} /> */}
       </Routes>
 
       <Footer />
