@@ -22,7 +22,7 @@ function App() {
         <Route path='/faq' element={<FAQ />} />
         <Route path='/cadastro' element={<Cadastro />} />
         <Route path='/playlists' element={<PlaylistMock />} />
-        <Route path='/playlists/:id' element={<Playlist />} />
+        <Route path='/playlists/:id' element={<Song />} />
         {/* <Route path='/song' element={<Song />} /> */}
       </Routes>
 

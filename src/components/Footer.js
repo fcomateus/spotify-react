@@ -20,17 +20,17 @@ function Footer() {
           <ul className='nav col-md-4 justify-content-end list-unstyled d-flex'>
             <li className='ms-3'>
               <a className='text-muted' href='#'>
-                <img src='twitter.svg' alt='twitter' />
+                <img src='/twitter.svg' alt='twitter' />
               </a>
             </li>
             <li className='ms-3'>
               <a className='text-muted' href='#'>
-                <img src='instagram.svg' alt='instagram' />
+                <img src='/instagram.svg' alt='instagram' />
               </a>
             </li>
             <li className='ms-3'>
               <a className='text-muted' href='#'>
-                <img src='facebook.svg' alt='facebook' />
+                <img src='/facebook.svg' alt='facebook' />
               </a>
             </li>
           </ul>
