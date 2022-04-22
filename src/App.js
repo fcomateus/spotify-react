@@ -3,14 +3,13 @@ import Footer from './components/Footer';
 import Home from './components/Home';
 import FAQ from './components/Faq';
 import Cadastro from './components/Cadastro';
-import PlaylistMock from './components/PlaylistMock';
+import Playlists from './components/Playlists';
 
 import Song from './components/Song';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Playlist from './components/Playlist';
 
 function App() {
   return (
@@ -21,7 +20,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/faq' element={<FAQ />} />
         <Route path='/cadastro' element={<Cadastro />} />
-        <Route path='/playlists' element={<PlaylistMock />} />
+        <Route path='/playlists' element={<Playlists />} />
         <Route path='/playlists/:id' element={<Song />} />
         {/* <Route path='/song' element={<Song />} /> */}
       </Routes>

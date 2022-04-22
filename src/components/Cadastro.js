@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from "axios";
 
 function Cadastro() {
   const usuarioVazio = {
@@ -31,6 +32,11 @@ function Cadastro() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const dadosEnviados = {...usuario};
+    delete dadosEnviados.emailConf;
+    axios.post('http://localhost:3001/usuarios', dadosEnviados)
+    .then(res => console.log(res.data))
+    .catch(error => console.log(error));
     setUsuario(usuarioVazio);
   };
 

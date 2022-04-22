@@ -1,8 +1,33 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-import playlistsMock from '../data/playlistsMock';
+import axios from 'axios';
 
-export default function PlaylistMock() {
+export default function Playlists() {
+  const [carregando, setCarregando] = useState(true);
+  const [playlists, setPlaylists] = useState({});
+
+  const fetchPlaylists = () => {
+    setCarregando(true);
+    axios.get('http://localhost:3001/playlists') // porta do json-server
+    .then(res => {
+      setPlaylists(res.data)
+      setCarregando(false)
+    })
+    .catch(error => console.log(error));
+  }
+
+  useEffect(() => {
+    fetchPlaylists();
+  }, []);
+
+  if (carregando) {
+    return (
+        <h1>
+          Carregando...
+        </h1>
+    );
+  }
+
   return (
     <div className='container my-5'>
       <div className='bg-dark rounded px-5 pt-3'>
@@ -10,7 +35,7 @@ export default function PlaylistMock() {
           Playlists pra melhorar o seu dia.
         </h1>
         <div className='row row-cols-4 m-0'>
-          {playlistsMock.map((playlist) => {
+          {playlists.map((playlist) => {
             return (
               <div className='col pb-4 px-2 m-0' key={playlist.id}>
                 <Link to={`/playlists/${playlist.id}`}>
