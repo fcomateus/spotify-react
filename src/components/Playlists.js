@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 
 export default function Playlists() {
   const [carregando, setCarregando] = useState(true);
@@ -8,7 +8,7 @@ export default function Playlists() {
 
   const fetchPlaylists = () => {
     setCarregando(true);
-    axios.get('http://localhost:3001/playlists') // porta do json-server
+    api.get('/playlists') // porta do json-server
     .then(res => {
       setPlaylists(res.data)
       setCarregando(false)

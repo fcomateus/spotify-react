@@ -8,8 +8,14 @@
     },
     {
       "id": 2,
-      "nome": "Happy Rock 2",
-      "autor": "Bensound",
+      "nome": "Summer Nights",
+      "autor": "SIAMES",
+      "audio": "/songs/happyrock.mp3"
+    },
+    {
+      "id": 3,
+      "nome": "Halleluya",
+      "autor": "Shrek",
       "audio": "/songs/happyrock.mp3"
     }
   ],

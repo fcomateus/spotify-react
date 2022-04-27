@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import api from '../services/api';
 // import playlistsMock from '../data/playlistsMock';
 
 export default function Song() {
@@ -19,15 +19,16 @@ export default function Song() {
     fetchPlaylists();
   }, []);
 
-  const fetchPlaylists = () => {
+  async function fetchPlaylists() {
     setCarregando(true);
-    axios
-      .get('http://localhost:3001/playlists') // porta do json-server
-      .then((res) => {
-        setPlaylists(res.data);
-        setCarregando(false);
-      })
-      .catch((error) => console.log(error));
+    try {
+      const res = await api.get('/playlists'); // porta do json-server
+      setPlaylists(res.data);
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setCarregando(false);
+    }
   };
 
   async function carregarMusicas() {
@@ -119,6 +120,34 @@ export default function Song() {
             <p className='text-light'>{playlist?.descricao}</p>
           </div>
         </div>
+
+        <div class="main-control">
+          <div class="btn _previous" 
+            style={{
+              backgroundImage: `url("/player/previous.svg")`,
+            }}
+          >
+          </div>
+          <div class="btn _pause" 
+            style={{
+              backgroundImage: `url("/player/pause.svg")`,
+            }}
+          >
+          </div>
+          <div class="btn _next" 
+            style={{
+              backgroundImage: `url("/player/next.svg")`,
+            }}
+          >
+          </div>
+          <div class="btn _timeline">
+            <span class="current-time">2:32</span>
+            <span class="timescope">
+              <span class="timescope-dot"></span>
+            </span>
+            <span class="end-time">4:00</span>
+          </div>
+        </div>
       </div>
       <ul className='player-list'>
         {playlist.musicas.map((musica, indice) => (
@@ -135,13 +164,11 @@ export default function Song() {
             <audio hidden controls src={musica.audio} />
             <div className='main-control'>
               <div
-                className={`btn _${
-                  musicas[indice]?.tocando ? 'pause' : 'play'
-                }`}
+                className={`btn _${musicas[indice]?.tocando ? 'pause' : 'play'
+                  }`}
                 style={{
-                  backgroundImage: `url("/player/${
-                    musicas[indice]?.tocando ? 'pause' : 'play'
-                  }.svg")`,
+                  backgroundImage: `url("/player/${musicas[indice]?.tocando ? 'pause' : 'play'
+                    }.svg")`,
                 }}
                 onClick={() => toggle(indice)}
               />
@@ -150,10 +177,10 @@ export default function Song() {
                 <span className='current-time'>
                   {musicas[indice]?.musica
                     ? `${`${new Date(
-                        musicas[indice].musica.currentTime * 1000
-                      ).getUTCMinutes()}`.padStart(2, '0')}:${`${new Date(
-                        musicas[indice].musica.currentTime * 1000
-                      ).getUTCSeconds()}`.padStart(2, '0')}`
+                      musicas[indice].musica.currentTime * 1000
+                    ).getUTCMinutes()}`.padStart(2, '0')}:${`${new Date(
+                      musicas[indice].musica.currentTime * 1000
+                    ).getUTCSeconds()}`.padStart(2, '0')}`
                     : '00:00'}
                 </span>
 
@@ -161,12 +188,11 @@ export default function Song() {
                   <span
                     className='timescope-dot'
                     style={{
-                      left: `${
-                        musicas[indice]?.musica
+                      left: `${musicas[indice]?.musica
                           ? (musicas[indice].musica.currentTime * 100) /
-                            musicas[indice].musica.duration
+                          musicas[indice].musica.duration
                           : 0
-                      }%`,
+                        }%`,
                     }}
                   ></span>
                   <div
@@ -175,12 +201,11 @@ export default function Song() {
                       top: 0,
                       left: 0,
                       display: 'block',
-                      width: `${
-                        musicas[indice]?.musica
+                      width: `${musicas[indice]?.musica
                           ? (musicas[indice].musica.currentTime * 100) /
-                            musicas[indice].musica.duration
+                          musicas[indice].musica.duration
                           : 0
-                      }%`,
+                        }%`,
                       height: '100%',
                       backgroundColor: '#212529',
                       cursor: 'pointer',
@@ -191,10 +216,10 @@ export default function Song() {
                 <span className='end-time'>
                   {musicas[indice]?.musica.duration
                     ? `${new Date(
-                        musicas[indice].musica.duration * 1000
-                      ).getUTCMinutes()}:${new Date(
-                        musicas[indice].musica.duration * 1000
-                      ).getUTCSeconds()}`
+                      musicas[indice].musica.duration * 1000
+                    ).getUTCMinutes()}:${new Date(
+                      musicas[indice].musica.duration * 1000
+                    ).getUTCSeconds()}`
                     : '--:--'}
                 </span>
               </div>
