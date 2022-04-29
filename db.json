@@ -25,7 +25,8 @@
       "descricao": "Classic Rock",
       "Capa": "/capas/ClassicRockCover.jpg",
       "musicas": [
-        1, 2
+        1,
+        2
       ]
     },
     {
@@ -33,7 +34,8 @@
       "descricao": "House Party",
       "Capa": "/capas/HousePartyCover.jpg",
       "musicas": [
-        1, 2
+        1,
+        2
       ]
     },
     {
@@ -41,7 +43,8 @@
       "descricao": "Pop Leve",
       "Capa": "/capas/PopLeveCover.jpg",
       "musicas": [
-        1, 2
+        1,
+        2
       ]
     },
     {
@@ -49,7 +52,8 @@
       "descricao": "Presença Hip Hop",
       "Capa": "/capas/PresencaHipHopCover.jpg",
       "musicas": [
-        1, 2
+        1,
+        2
       ]
     },
     {
@@ -57,7 +61,8 @@
       "descricao": "Bonde do Funk",
       "Capa": "/capas/BondeDoFunkCover.jpg",
       "musicas": [
-        1, 2
+        1,
+        2
       ]
     },
     {
@@ -65,7 +70,8 @@
       "descricao": "Classicos Sertanejo",
       "Capa": "/capas/ClassicosSertanejoCover.jpg",
       "musicas": [
-        1, 2
+        1,
+        2
       ]
     },
     {
@@ -73,7 +79,8 @@
       "descricao": "Pagode Romântico",
       "Capa": "/capas/PagodeRomanticoCover.jpg",
       "musicas": [
-        1, 2
+        1,
+        2
       ]
     },
     {
@@ -81,11 +88,31 @@
       "descricao": "Louvor & Adoração",
       "Capa": "/capas/LouvoreAdoracaoCover.jpg",
       "musicas": [
-        1, 2
+        1,
+        2
       ]
     }
   ],
   "usuarios": [
-
+    {
+      "nome": "Cleiton",
+      "sobrenome": "Jones",
+      "dataDeNascimento": "1990-05-05",
+      "genero": "masculino",
+      "email": "cleiton@jones",
+      "senha": "cleiton12",
+      "plano": "1",
+      "id": 3
+    },
+    {
+      "nome": "Jerson",
+      "sobrenome": "Joao",
+      "dataDeNascimento": "2004-12-19",
+      "genero": "masculino",
+      "email": "jerson@joao",
+      "senha": "segredp5",
+      "plano": "1",
+      "id": 4
+    }
   ]
 }
