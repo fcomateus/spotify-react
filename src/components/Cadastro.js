@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import axios from "axios";
+import api from '../services/api';
+import { setCookie } from '../services/cookie';
 
 function Cadastro() {
   const usuarioVazio = {
@@ -32,11 +33,17 @@ function Cadastro() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const dadosEnviados = {...usuario};
+    const dadosEnviados = { ...usuario };
     delete dadosEnviados.emailConf;
-    axios.post('http://localhost:3001/usuarios', dadosEnviados)
-    .then(res => console.log(res.data))
-    .catch(error => console.log(error));
+    api
+      .post('/usuarios', dadosEnviados)
+      .then((res) => {
+        const data = res.data;
+        setCookie('spotifycookie', data.id, 99);
+        console.log(data);
+        window.location.href = '/';
+      })
+      .catch((error) => console.log(error));
     setUsuario(usuarioVazio);
   };
 

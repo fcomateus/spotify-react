@@ -43,11 +43,11 @@ export default function Song() {
       const res = await api.get('/playlists'); // porta do json-server
       await carregarMusicas(res.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
       setCarregando(false);
     }
-  };
+  }
 
   async function carregarMusicas(playlists) {
     const playlistUnica = playlists.find((item) => item.id == id);
