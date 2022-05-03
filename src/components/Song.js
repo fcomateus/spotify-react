@@ -4,26 +4,44 @@ import api from '../services/api';
 // import playlistsMock from '../data/playlistsMock';
 
 export default function Song() {
+  let atualizaTempo;
+
   const { id } = useParams();
 
   const [musicas, setMusicas] = useState([]);
   const [carregando, setCarregando] = useState(true);
-  const [playlists, setPlaylists] = useState([]);
   const [playlist, setPlaylist] = useState({ musicas: [] });
 
-  useEffect(() => {
-    carregarMusicas();
-  }, [playlists]);
+  const [tocando, setTocando] = useState(false);
+  const [indicePlaylist, setIndicePlaylist] = useState(0);
+  const [musicaAtual] = useState(new Audio());
+
+  const [tempoAtual, setTempoAtual] = useState("00:00");
+  const [tempoTotal, setTempoTotal] = useState("00:00");
+  const [barraProgressao, setBarraProgressao] = useState(0);
+
 
   useEffect(() => {
     fetchPlaylists();
+    return () => pausarMusica();
   }, []);
+
+  useEffect(() => {
+    if (musicas.length) {
+      carregarMusica(indicePlaylist);
+      tocarMusica();
+    }
+  }, [indicePlaylist]);
+
+  useEffect(() => {
+    carregarMusica(indicePlaylist);
+  }, [musicas]);
 
   async function fetchPlaylists() {
     setCarregando(true);
     try {
       const res = await api.get('/playlists'); // porta do json-server
-      setPlaylists(res.data);
+      await carregarMusicas(res.data);
     } catch (error) {
       console.log(error)
     } finally {
@@ -31,64 +49,99 @@ export default function Song() {
     }
   };
 
-  async function carregarMusicas() {
+  async function carregarMusicas(playlists) {
     const playlistUnica = playlists.find((item) => item.id == id);
     setPlaylist(playlistUnica);
-    const listaMusicas = await playlist.musicas.map((musica) => {
-      const audio = new Audio(musica.audio);
-      return { musica: audio, tocando: false, tempoAtual: 0 };
-    });
+
+    console.log("playlist", playlistUnica)
+    const res = await api.get('/musicas');
+    const listaMusicas = await res.data.filter((musica) => playlistUnica.musicas.includes(musica.id));
 
     setMusicas(listaMusicas);
   }
 
-  function toggle(indice) {
-    let listaMusicas = [...musicas];
+  function carregarMusica(indicePlaylist) {
+    clearInterval(atualizaTempo);
+    resetarValores();
 
-    if (!musicas[indice].tocando) {
-      listaMusicas[indice].musica.play();
-      monitorarDuracao(indice);
-    } else {
-      listaMusicas[indice].musica.pause();
+    console.log(musicas, indicePlaylist);
+    if (musicas.length) {
+      musicaAtual.src = musicas[indicePlaylist].audio;
+      musicaAtual.load();
+
+      atualizaTempo = setInterval(procuraAtualizacao, 1000);
+
+      musicaAtual.addEventListener("ended", proximaMusica);
+    }
+  }
+
+  function resetarValores() {
+    setTempoAtual("00:00");
+    setTempoTotal("00:00");
+    setBarraProgressao(0);
+  }
+
+  function tocarPausarMusica() {
+    if (!musicaAtual.src) {
+      carregarMusica(indicePlaylist);
+      return tocarMusica();
     }
 
-    listaMusicas[indice] = {
-      ...listaMusicas[indice],
-      tocando: !listaMusicas[indice].tocando,
-    };
-
-    setMusicas(listaMusicas);
+    if (!tocando) tocarMusica();
+    else pausarMusica();
   }
 
-  function monitorarDuracao(indice) {
-    let listaMusicas = [...musicas];
+  function tocarMusica() {
+    musicaAtual.play();
+    setTocando(true);
+  }
 
-    listaMusicas[indice].musica.addEventListener('timeupdate', (time) => {
-      let listaMusicas = [...musicas];
-      // console.log(musicas[indice].musica.currentTime, musicas[indice].musica.duration, musicas[indice].musica.currentTime * musicas[indice].musica.duration /100);
+  function pausarMusica() {
+    musicaAtual.pause();
+    setTocando(false);
+  }
 
-      listaMusicas[indice] = {
-        ...listaMusicas[indice],
-        tocando: true,
-        tempoAtual: listaMusicas[indice].musica.currentTime,
-      };
+  function proximaMusica() {
+    if (indicePlaylist < musicas.length - 1)
+      setIndicePlaylist(indicePlaylist + 1);
+    else setIndicePlaylist(0);
 
-      setMusicas(listaMusicas);
-    });
+  }
 
-    listaMusicas[indice].musica.addEventListener('ended', (time) => {
-      let listaMusicas = [...musicas];
+  function musicaAnterior() {
+    if (indicePlaylist > 0)
+      setIndicePlaylist(indicePlaylist - 1);
+    else setIndicePlaylist(musicas.length - 1);
+  }
 
-      listaMusicas[indice].musica.currentTime = 0;
+  function definirTempoAtual(event) {
+    let procurarPor = musicaAtual.duration * (event.target.value / 100);
 
-      listaMusicas[indice] = {
-        ...listaMusicas[indice],
-        tocando: false,
-        tempoAtual: 0,
-      };
+    setBarraProgressao(event.target.value)
 
-      setMusicas(listaMusicas);
-    });
+    musicaAtual.currentTime = procurarPor;
+  }
+
+  function procuraAtualizacao() {
+    let posicaoBarraProgressao = 0;
+
+    if (!isNaN(musicaAtual.duration)) {
+      posicaoBarraProgressao = musicaAtual.currentTime * (100 / musicaAtual.duration);
+      setBarraProgressao(posicaoBarraProgressao);
+
+      let currentMinutes = Math.floor(musicaAtual.currentTime / 60);
+      let currentSeconds = Math.floor(musicaAtual.currentTime - currentMinutes * 60);
+      let durationMinutes = Math.floor(musicaAtual.duration / 60);
+      let durationSeconds = Math.floor(musicaAtual.duration - durationMinutes * 60);
+
+      if (currentSeconds < 10) { currentSeconds = "0" + currentSeconds; }
+      if (durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
+      if (currentMinutes < 10) { currentMinutes = "0" + currentMinutes; }
+      if (durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
+
+      setTempoAtual(currentMinutes + ":" + currentSeconds);
+      setTempoTotal(durationMinutes + ":" + durationSeconds);
+    }
   }
 
   if (carregando) {
@@ -120,38 +173,46 @@ export default function Song() {
             <p className='text-light'>{playlist?.descricao}</p>
           </div>
         </div>
+        <p className='text-light'>{musicas[indicePlaylist]?.nome}</p>
 
-        <div class="main-control">
-          <div class="btn _previous" 
+        <div className="main-control">
+          <div className="btn _previous"
             style={{
               backgroundImage: `url("/player/previous.svg")`,
             }}
+            onClick={() => musicaAnterior()}
           >
           </div>
-          <div class="btn _pause" 
-            style={{
-              backgroundImage: `url("/player/pause.svg")`,
-            }}
-          >
-          </div>
-          <div class="btn _next" 
+          <div
+            className={`btn _${tocando ? 'pause' : 'play'}`}
+            style={{ backgroundImage: `url("/player/${tocando ? 'pause' : 'play'}.svg")` }}
+            onClick={() => tocarPausarMusica()}
+          />
+          <div className="btn _next"
             style={{
               backgroundImage: `url("/player/next.svg")`,
             }}
+            onClick={() => proximaMusica()}
           >
           </div>
-          <div class="btn _timeline">
-            <span class="current-time">2:32</span>
-            <span class="timescope">
-              <span class="timescope-dot"></span>
-            </span>
-            <span class="end-time">4:00</span>
+          <div className="btn _timeline">
+            <span className="current-time">{tempoAtual}</span>
+            {/* <span className="timescope"> */}
+            <input type="range" min="1" max="100" value={barraProgressao} className="seek_slider" onChange={definirTempoAtual} />
+            {/* </span> */}
+            <span className="end-time">{tempoTotal}</span>
           </div>
         </div>
       </div>
       <ul className='player-list'>
-        {playlist.musicas.map((musica, indice) => (
-          <li key={musica.id}>
+        {musicas.map((musica, indice) => (
+          <li key={musica.id} onClick={() => indice == indicePlaylist ? tocarPausarMusica() : setIndicePlaylist(indice)}>
+            {indice == indicePlaylist ?
+              <div
+                className='playing'
+                style={{ position: 'absolute', backgroundColor: 'rgba(0,0,0,0.7)' }}  
+              ><div className='playing-img' style={{ position: 'absolute', backgroundImage: `url("/player/${tocando ? 'pause' : 'play'}.svg")`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}/></div> : null
+            }
             <img
               className='list-cover'
               src={playlist?.Capa}
@@ -160,69 +221,6 @@ export default function Song() {
             <div className='list-info'>
               <div className='info-title'>{musica.nome}</div>
               <div className='info-artist'>{musica.autor}</div>
-            </div>
-            <audio hidden controls src={musica.audio} />
-            <div className='main-control'>
-              <div
-                className={`btn _${musicas[indice]?.tocando ? 'pause' : 'play'
-                  }`}
-                style={{
-                  backgroundImage: `url("/player/${musicas[indice]?.tocando ? 'pause' : 'play'
-                    }.svg")`,
-                }}
-                onClick={() => toggle(indice)}
-              />
-
-              <div className='btn _timeline'>
-                <span className='current-time'>
-                  {musicas[indice]?.musica
-                    ? `${`${new Date(
-                      musicas[indice].musica.currentTime * 1000
-                    ).getUTCMinutes()}`.padStart(2, '0')}:${`${new Date(
-                      musicas[indice].musica.currentTime * 1000
-                    ).getUTCSeconds()}`.padStart(2, '0')}`
-                    : '00:00'}
-                </span>
-
-                <span className='timescope'>
-                  <span
-                    className='timescope-dot'
-                    style={{
-                      left: `${musicas[indice]?.musica
-                          ? (musicas[indice].musica.currentTime * 100) /
-                          musicas[indice].musica.duration
-                          : 0
-                        }%`,
-                    }}
-                  ></span>
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      display: 'block',
-                      width: `${musicas[indice]?.musica
-                          ? (musicas[indice].musica.currentTime * 100) /
-                          musicas[indice].musica.duration
-                          : 0
-                        }%`,
-                      height: '100%',
-                      backgroundColor: '#212529',
-                      cursor: 'pointer',
-                      zIndex: 1,
-                    }}
-                  ></div>
-                </span>
-                <span className='end-time'>
-                  {musicas[indice]?.musica.duration
-                    ? `${new Date(
-                      musicas[indice].musica.duration * 1000
-                    ).getUTCMinutes()}:${new Date(
-                      musicas[indice].musica.duration * 1000
-                    ).getUTCSeconds()}`
-                    : '--:--'}
-                </span>
-              </div>
             </div>
           </li>
         ))}

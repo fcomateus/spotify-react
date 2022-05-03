@@ -161,6 +161,11 @@ section {
     margin-right: 24px;
     background-size: auto 80%;
   }
+    
+  .seek_slider {
+    width: 60%;
+  }
+
   .main-control .btn._timeline {
     vertical-align: middle;
     height: auto;
@@ -227,6 +232,23 @@ section {
     display: inline-block;
     vertical-align: middle;
   }
+
+  .player-list li .playing {
+    display: inline-block;
+    vertical-align: middle;
+    width: 39px;
+    border-radius: 100%;
+    height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .player-list li .playing-img {
+    width: 12px;
+    height: 20px;
+  }
+
   .player-list li .list-cover.list-cover,
   .player-list li .list-info.list-cover {
     margin-right: 9px;
