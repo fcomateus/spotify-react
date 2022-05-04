@@ -18,15 +18,19 @@ function Header() {
         </Link>
 
         <ul className='navbar-nav'>
-          <li className='nav-item'>
-            <Link
-              to='/'
-              className='nav-link'
-              style={{ textDecoration: 'none' }}
-            >
-              Home
-            </Link>
-          </li>
+          {cookie ? (
+            ''
+          ) : (
+            <li className='nav-item'>
+              <Link
+                to='/'
+                className='nav-link'
+                style={{ textDecoration: 'none' }}
+              >
+                Home
+              </Link>
+            </li>
+          )}
 
           <li className='nav-item'>
             <Link

@@ -41,7 +41,7 @@ function Cadastro() {
         const data = res.data;
         setCookie('spotifycookie', data.id, 99);
         console.log(data);
-        window.location.href = '/';
+        window.location.href = '/playlists';
       })
       .catch((error) => console.log(error));
     setUsuario(usuarioVazio);
