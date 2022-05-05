@@ -4,6 +4,7 @@ import Home from './components/Home';
 import FAQ from './components/Faq';
 import Cadastro from './components/Cadastro';
 import Playlists from './components/Playlists';
+import Login from './components/Login';
 
 import Song from './components/Song';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,6 +21,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/faq' element={<FAQ />} />
         <Route path='/cadastro' element={<Cadastro />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/playlists' element={<Playlists />} />
         <Route path='/playlists/:id' element={<Song />} />
         {/* <Route path='/song' element={<Song />} /> */}
