@@ -5,6 +5,8 @@ import FAQ from './components/Faq';
 import Cadastro from './components/Cadastro';
 import Playlists from './components/Playlists';
 import Login from './components/Login';
+import Profile from './components/Profile';
+
 
 import Song from './components/Song';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,6 +26,8 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/playlists' element={<Playlists />} />
         <Route path='/playlists/:id' element={<Song />} />
+        <Route path='/profile' element={<Profile />} />
+
         {/* <Route path='/song' element={<Song />} /> */}
       </Routes>
 
