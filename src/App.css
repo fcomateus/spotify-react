@@ -270,3 +270,8 @@ section {
   .player-list li:last-child {
     margin-bottom: 0;
   }
+
+  .genero {
+    margin-right: 1rem;
+    margin-block: 1rem;
+  }

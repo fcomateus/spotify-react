@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { getCookie } from "../services/cookie";
+import { eraseCookie, getCookie } from "../services/cookie";
 import api from "../services/api";
 
 function Profile() {
@@ -7,8 +7,8 @@ function Profile() {
   const [profile, setProfile] = useState({});
   const cookie = getCookie("spotifycookie");
 
-  const [confimacao, setConfirmacao] = useState("");
- 
+  const [senha, setSenha] = useState("");
+
   useEffect(() => {
     fetchProfile(parseInt(cookie));
   }, []);
@@ -19,6 +19,7 @@ function Profile() {
       .get(`/usuarios/${cookie}`) // porta do json-server
       .then((res) => {
         setProfile(res.data);
+        setSenha(res.data.senha);
         setCarregando(false);
         console.log(res.data);
       })
@@ -35,18 +36,35 @@ function Profile() {
     setProfile({ ...profile, [campo]: valor });
   };
 
-  const handleChangeConf = (e) => {
-    const campo = e.target.name;
-    const valor = e.target.value;
-    setConfirmacao({ ...confimacao, [campo]: valor });
-  };
 
-  const comparaSenha = () => {
-    if (confimacao.senha !== profile.senha) {
-      return false;
+
+  const handleSubmit = () => {
+    const dadosEnviados = { ...profile };
+
+    if (!profile.senha) {
+      if (profile.senhaAtual == senha) {
+         dadosEnviados.senha = profile.senha;
+      } else {
+        console.log("ERROR! SENHA INCORRETA");
+      }
     }
-    return true;
-  };
+
+    delete dadosEnviados.senhaAtual;
+    api
+      .patch(`/usuarios/${cookie}`, dadosEnviados)
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        setProfile(res.data)
+        document.location.reload()
+      })
+      .catch((error) => console.log(error));
+ };
+
+  const logout = () => {
+    eraseCookie('spotifycookie')
+    window.location.href = '/'
+  }
 
   return (
     <div className="container rounded bg-white mt-5 mb-5">
@@ -107,50 +125,44 @@ function Profile() {
 
               <div className="col-md-12">
                 <label className="labels genero">Gênero:</label>
-                <div className='form-check form-check-inline'>
-                        <input
-                          onChange={handleChange}
-                          className='form-check-input'
-                          type='radio'
-                          name='genero'
-                          id='genFeminino'
-                          value='feminino'
-                        />
-                        <label
-                          className='form-check-label'
-                          htmlFor='genFeminino'
-                        >
-                          Feminino
-                        </label>
-                </div>
-                <div className='form-check form-check-inline'>
-                <input
+                <div className="form-check form-check-inline">
+                  <input
                     onChange={handleChange}
-                    className='form-check-input'
-                    type='radio'
-                    name='genero'
-                    id='genMasculino'
-                    value='masculino'
-                />
-                <label
-                    className='form-check-label'
-                    htmlFor='genMasculino'
-                >
+                    className="form-check-input"
+                    type="radio"
+                    name="genero"
+                    id="genFeminino"
+                    value="feminino"
+                  />
+                  <label className="form-check-label" htmlFor="genFeminino">
+                    Feminino
+                  </label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <input
+                    onChange={handleChange}
+                    className="form-check-input"
+                    type="radio"
+                    name="genero"
+                    id="genMasculino"
+                    value="masculino"
+                  />
+                  <label className="form-check-label" htmlFor="genMasculino">
                     Masculino
-                </label>
+                  </label>
                 </div>
-                <div className='form-check form-check-inline'>
-                <input
+                <div className="form-check form-check-inline">
+                  <input
                     onChange={handleChange}
-                    className='form-check-input'
-                    type='radio'
-                    name='genero'
-                    id='genOutro'
-                    value='outro'
-                />
-                <label className='form-check-label' htmlFor='genOutro'>
+                    className="form-check-input"
+                    type="radio"
+                    name="genero"
+                    id="genOutro"
+                    value="outro"
+                  />
+                  <label className="form-check-label" htmlFor="genOutro">
                     Outro
-                </label>
+                  </label>
                 </div>
               </div>
 
@@ -168,49 +180,51 @@ function Profile() {
               <div className="col-md-12">
                 <label className="labels">Tipo do Plano</label>
                 <select
-                        className='select form-control'
-                        name='plano'
-                        value={profile.plano}
-                        onChange={handleChange}
-                      >
-                        <option value='0' disabled>
-                          Tipo de plano
-                        </option>
-                        <option value='1'>Free</option>
-                        <option value='2'>Premium</option>
-                      </select>
+                  className="select form-control"
+                  name="plano"
+                  value={profile.plano}
+                  onChange={handleChange}
+                >
+                  <option value="0" disabled>
+                    Tipo de plano
+                  </option>
+                  <option value="1">Free</option>
+                  <option value="2">Premium</option>
+                </select>
               </div>
-
             </div>
             <div className="row mt-3">
               <div className="col-md-6">
                 <label className="labels">Senha Atual</label>
                 <input
-                  type="password"
+                  type="text"
                   className="form-control"
-                  placeholder="Senha"
-                  value="Senha Atual"
-                  onChange={handleChangeConf}
-                  name="senha"
+                  placeholder=""
+                  // onChange={handleChange}
+                  name="senhaAtual"
+                  id="senha"
                 ></input>
               </div>
               <div className="col-md-6">
                 <label className="labels">Nova senha</label>
                 <input
                   type="text"
-                  className={`${
-                    comparaSenha() ? '' : 'form-invalid'
-                  } form-control`}                  
+                  className= "form-control"
                   placeholder=""
-                  value="Nova Senha"
-                  onChange={handleChange }
-                  name="novaSenha"
+                  value={profile.novaSenha}
+                  onChange={handleChange}
+                  name="senha"
                 ></input>
               </div>
             </div>
             <div className="mt-5 text-center">
-              <button className="btn btn-primary profile-button" type="button">
+              <button className="btn btn-primary profile-button" onClick={handleSubmit} type="button">
                 Save Profile
+              </button>
+            </div>
+            <div>
+              <button className="btn btn-primary profile-button" onClick={logout} style={{background: 'red', border: 'none'}} type="button">
+                Log out
               </button>
             </div>
           </div>

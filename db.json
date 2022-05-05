@@ -131,6 +131,16 @@
       "senha": "segredo",
       "plano": "1",
       "id": 5
+    },
+    {
+      "nome": "teste",
+      "sobrenome": "testesobrenome",
+      "dataDeNascimento": "1889-06-05",
+      "genero": "masculino",
+      "email": "teste@email.com4333343434",
+      "senha": "senha2",
+      "plano": "1",
+      "id": 6
     }
   ]
 }
