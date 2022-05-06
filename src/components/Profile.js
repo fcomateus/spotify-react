@@ -36,35 +36,34 @@ function Profile() {
     setProfile({ ...profile, [campo]: valor });
   };
 
-
-
   const handleSubmit = () => {
     const dadosEnviados = { ...profile };
 
-    if (!profile.senha) {
+    if (profile.senha) {
+      // console.log(profile.senhaAtual + " e " + senha);
       if (profile.senhaAtual == senha) {
-         dadosEnviados.senha = profile.senha;
+        dadosEnviados.senha = profile.senha;
+
+        delete dadosEnviados.senhaAtual;
+        api
+          .patch(`/usuarios/${cookie}`, dadosEnviados)
+          .then((res) => {
+            const data = res.data;
+            console.log(data);
+            setProfile(res.data);
+            document.location.reload()
+          })
+          .catch((error) => console.log(error));
       } else {
-        console.log("ERROR! SENHA INCORRETA");
+        alert("ERROR! SENHA INCORRETA");
       }
     }
-
-    delete dadosEnviados.senhaAtual;
-    api
-      .patch(`/usuarios/${cookie}`, dadosEnviados)
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
-        setProfile(res.data)
-        document.location.reload()
-      })
-      .catch((error) => console.log(error));
- };
+  };
 
   const logout = () => {
-    eraseCookie('spotifycookie')
-    window.location.href = '/'
-  }
+    eraseCookie("spotifycookie");
+    window.location.href = "/";
+  };
 
   return (
     <div className="container rounded bg-white mt-5 mb-5">
@@ -200,7 +199,7 @@ function Profile() {
                   type="text"
                   className="form-control"
                   placeholder=""
-                  // onChange={handleChange}
+                  onChange={handleChange}
                   name="senhaAtual"
                   id="senha"
                 ></input>
@@ -209,7 +208,7 @@ function Profile() {
                 <label className="labels">Nova senha</label>
                 <input
                   type="text"
-                  className= "form-control"
+                  className="form-control"
                   placeholder=""
                   value={profile.novaSenha}
                   onChange={handleChange}
@@ -218,12 +217,21 @@ function Profile() {
               </div>
             </div>
             <div className="mt-5 text-center">
-              <button className="btn btn-primary profile-button" onClick={handleSubmit} type="button">
+              <button
+                className="btn btn-primary profile-button"
+                onClick={handleSubmit}
+                type="button"
+              >
                 Save Profile
               </button>
             </div>
             <div>
-              <button className="btn btn-primary profile-button" onClick={logout} style={{background: 'red', border: 'none'}} type="button">
+              <button
+                className="btn btn-primary profile-button"
+                onClick={logout}
+                style={{ background: "red", border: "none" }}
+                type="button"
+              >
                 Log out
               </button>
             </div>

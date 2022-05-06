@@ -32,15 +32,6 @@ function Header() {
             </li>
           )}
 
-          <li className='nav-item'>
-            <Link
-              to='/faq'
-              className='nav-link'
-              style={{ textDecoration: 'none' }}
-            >
-              FAQ
-            </Link>
-          </li>
 
           <li className='nav-item'>
             {cookie ? (
@@ -83,6 +74,15 @@ function Header() {
               style={{ textDecoration: 'none' }}
             >
               Playlists
+            </Link>
+          </li>
+          <li className='nav-item'>
+            <Link
+              to='/faq'
+              className='nav-link'
+              style={{ textDecoration: 'none' }}
+            >
+              FAQ
             </Link>
           </li>
         </ul>
