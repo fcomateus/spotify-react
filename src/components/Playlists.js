@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
+import Search from "./Search";
 
 export default function Playlists() {
   const [carregando, setCarregando] = useState(true);
   const [playlists, setPlaylists] = useState({});
-  const [musicas, setMusicas] = useState([]);
-  const [pesquisa, setPesquisa] = useState("");
 
-
-  
   const fetchPlaylists = () => {
     setCarregando(true);
     api
@@ -19,36 +16,18 @@ export default function Playlists() {
         setCarregando(false);
       })
       .catch((error) => console.log(error));
-    };
-    
-    useEffect(() => {
-      fetchPlaylists();
-    }, []);
-    
-    if (carregando) {
-      return <h1>Carregando...</h1>;
-    }
-    
-  const handleChange = (e) => {
-    setPesquisa(e.target.value);
-  };
-  
-  
-  const pesquisarMusicas = () => {
-    api
-    .get("/musicas") // porta do json-server
-    .then((res) => {
-      const musicasRecebidas = res.data;
-      const musicasFiltradas = musicasRecebidas.filter((musica) => musica.nome.includes(pesquisa));
-      console.log(musicasFiltradas);
-      setMusicas(musicasFiltradas);
-    })
-    .catch((error) => console.log(error));
   };
 
+  useEffect(() => {
+    fetchPlaylists();
+  }, []);
 
-    return (
-      <div className="container my-5">
+  if (carregando) {
+    return <h1>Carregando...</h1>;
+  }
+
+  return (
+    <div className="container my-5">
       <div className="bg-dark rounded px-5 pt-3">
         <h1 className="text-center mb-3 text-light">
           Playlists pra melhorar o seu dia.
@@ -70,18 +49,7 @@ export default function Playlists() {
           })}
         </div>
       </div>
-      <label htmlFor="pesquisa">Pesquisa de músicas: </label>
-      <input type="text" id="pesquisa" onChange={handleChange}/>
-      <button onClick={pesquisarMusicas} >
-        Pesquisar
-      </button>
-
-          {
-            musicas.forEach(musica => {
-              <div>{musica.nome} / {musica.autor}</div>
-            })
-          }
-
+      <Search />
     </div>
   );
 }
