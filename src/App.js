@@ -8,10 +8,10 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 
 
-import Song from './components/Song';
+import Song from './components/Playlist';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import './App.css';
+import './components/styles/App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {

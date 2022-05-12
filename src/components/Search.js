@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import api from "../services/api";
+import Musica from "./Musica";
 
 function Search() {
 
@@ -31,10 +32,10 @@ function Search() {
     <div>
       <label htmlFor="pesquisa">Pesquisa de músicas: </label>
       <input type="text" id="pesquisa" onChange={handleChange}/>
-      <button onClick={pesquisarMusicas} >
-        Pesquisar
-      </button>
-      {pesquisa && musicas.map(musica => (<div>{musica.nome} / {musica.autor}</div>))}
+      {/*<button onClick={pesquisarMusicas} >*/}
+      {/*  Pesquisar*/}
+      {/*</button>*/}
+      {pesquisa && musicas.map(musica => <Musica {...musica} />)}
     </div>
   )
 }

@@ -14,9 +14,10 @@ function Login() {
           if (usuario.email === info.email && usuario.senha === info.senha) {
             setCookie('spotifycookie', usuario.id, 99);
             window.location.href = '/playlists';
+          } else {
+            alert("Email ou senha inválidos.");
           }
         });
-        console.log('Login invalido');
       })
       .catch((error) => console.log(error));
   };
