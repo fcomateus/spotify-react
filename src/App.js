@@ -6,9 +6,7 @@ import Cadastro from './components/Cadastro';
 import Playlists from './components/Playlists';
 import Login from './components/Login';
 import Profile from './components/Profile';
-
-
-import Song from './components/Playlist';
+import Playlist from './components/Playlist';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './components/styles/App.css';
@@ -25,7 +23,7 @@ function App() {
         <Route path='/cadastro' element={<Cadastro />} />
         <Route path='/login' element={<Login />} />
         <Route path='/playlists' element={<Playlists />} />
-        <Route path='/playlists/:id' element={<Song />} />
+        <Route path='/playlists/:id' element={<Playlist />} />
         <Route path='/profile' element={<Profile />} />
 
         {/* <Route path='/song' element={<Song />} /> */}

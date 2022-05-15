@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../services/api';
-import { setCookie } from '../services/cookie';
+import {getCookie, setCookie} from '../services/cookie';
+import alert from "bootstrap/js/src/alert";
 
 function Login() {
   const [userInfo, setUserInfo] = useState({});
@@ -10,14 +11,17 @@ function Login() {
     api
       .get('/usuarios')
       .then((res) => {
+        let logged = false;
         res.data.forEach((usuario) => {
           if (usuario.email === info.email && usuario.senha === info.senha) {
             setCookie('spotifycookie', usuario.id, 99);
+            logged = true;
             window.location.href = '/playlists';
-          } else {
-            alert("Email ou senha inválidos.");
           }
         });
+        if (!logged) {
+          alert("Usuário ou senha inválidos.");
+        }
       })
       .catch((error) => console.log(error));
   };

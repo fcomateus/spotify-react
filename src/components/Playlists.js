@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
 import Search from "./Search";
+import {getCookie} from "../services/cookie";
+import PrivatePlaylists from "./PrivatePlaylists";
 
 export default function Playlists() {
+
+  const id = getCookie('spotifycookie');
   const [carregando, setCarregando] = useState(true);
   const [playlists, setPlaylists] = useState({});
 
   const fetchPlaylists = () => {
     setCarregando(true);
     api
-      .get("/playlists") // porta do json-server
+      .get("/playlists")
       .then((res) => {
         setPlaylists(res.data);
         setCarregando(false);
@@ -49,6 +53,7 @@ export default function Playlists() {
           })}
         </div>
       </div>
+      {id && <PrivatePlaylists id={id} />}
       <Search />
     </div>
   );
