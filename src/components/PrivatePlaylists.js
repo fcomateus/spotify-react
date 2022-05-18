@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import api from "../services/api";
 import {Link} from "react-router-dom";
+import "./styles/Playlists.css";
 
 function PrivatePlaylists({id}) {
 
@@ -28,7 +29,7 @@ function PrivatePlaylists({id}) {
   }
 
   return (
-    <div className="container my-5">
+    <div className="container my-5 colunaPrivados">
       <div className="bg-dark rounded px-5 pt-3">
         <h1 className="text-center mb-3 text-light">
           Suas Playlists privadas.

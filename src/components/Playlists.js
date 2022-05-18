@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
 import Search from "./Search";
-import {getCookie} from "../services/cookie";
+import { getCookie } from "../services/cookie";
 import PrivatePlaylists from "./PrivatePlaylists";
+import "./styles/Playlists.css";
 
 export default function Playlists() {
-
-  const id = getCookie('spotifycookie');
+  const id = getCookie("spotifycookie");
   const [carregando, setCarregando] = useState(true);
   const [playlists, setPlaylists] = useState({});
 
@@ -31,7 +31,8 @@ export default function Playlists() {
   }
 
   return (
-    <div className="container my-5">
+    <div className="container my-5 playlistWrapper">
+      <div>{id && <PrivatePlaylists id={id} />}</div>
       <div className="bg-dark rounded px-5 pt-3">
         <h1 className="text-center mb-3 text-light">
           Playlists pra melhorar o seu dia.
@@ -44,8 +45,8 @@ export default function Playlists() {
                   <img
                     // id="capa"
                     src={playlist.Capa}
-                    height={250}
-                    width={250}
+                    height={200}
+                    width={200}
                   />
                 </Link>
               </div>
@@ -53,8 +54,6 @@ export default function Playlists() {
           })}
         </div>
       </div>
-      {id && <PrivatePlaylists id={id} />}
-      <Search />
     </div>
   );
 }
