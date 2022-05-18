@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 16px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.my-container {
+  /* border: 1px solid rgb(133, 130, 130); */
+  
+  width: 400px;
+  height: 120px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 50px;
+  gap: 10px;
+
+  transition: all 200ms;
+}
+
+.my-image-container {
+  width: 150px;
+  height: 100%;
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px; */
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  
+}
+
+.my-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+}
+
+.my-container .my-music-info {
+  /* align-self: center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: 30px
+}
+
+.my-container:hover {
+  /* border: 1px solid gray; */
+  background-color: rgb(237, 235, 235);
+  transform: translateY(-5px);
+}
+
+button {
+  width: 40px;
+  height: 40px;
+  align-self: center;
+  background: none;
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button img {
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  transition: opacity 200ms;
+}
+
+button img:hover {
+  opacity: 1;
+}
