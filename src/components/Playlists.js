@@ -11,16 +11,12 @@ export default function Playlists() {
   const [carregando, setCarregando] = useState(true);
   const [playlists, setPlaylists] = useState({});
 
-  const fetchPlaylists = () => {
+  async function fetchPlaylists() {
     setCarregando(true);
-    api
-      .get("/playlists")
-      .then((res) => {
-        setPlaylists(res.data);
-        setCarregando(false);
-      })
-      .catch((error) => console.log(error));
-  };
+    const response = await api.get("/playlists");
+    setPlaylists(response.data);
+    setCarregando(false);
+  }
 
   useEffect(() => {
     fetchPlaylists();

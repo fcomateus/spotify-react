@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './components/styles/App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CadastroPlaylist from './components/CadastroPlaylist';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/playlists' element={<Playlists />} />
         <Route path='/playlists/:id' element={<Playlist />} />
+        <Route path='/playlists/adicionar' element={<CadastroPlaylist />} />
         <Route path='/profile' element={<Profile />} />
 
         {/* <Route path='/song' element={<Song />} /> */}

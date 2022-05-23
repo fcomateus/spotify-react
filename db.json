@@ -17,6 +17,48 @@
       "nome": "Halleluya",
       "autor": "Shrek",
       "audio": "/songs/happyrock.mp3"
+    },
+    {
+      "id": 4,
+      "nome": "Aerials",
+      "autor": "System of Down",
+      "audio": "/songs/happyrock.mp3"
+    },
+    {
+      "id": 5,
+      "nome": "Odd Look",
+      "autor": "Kavinsky, The Weeknd",
+      "audio": "/songs/happyrock.mp3"
+    },
+    {
+      "id": 6,
+      "nome": "Why'd You Only Call Me When You're High?",
+      "autor": "Artic Monkeys",
+      "audio": "/songs/happyrock.mp3"
+    },
+    {
+      "id": 7,
+      "nome": "The Scientist",
+      "autor": "Coldplay",
+      "audio": "/songs/happyrock.mp3"
+    },
+    {
+      "id": 8,
+      "nome": "Black Roles",
+      "autor": "The Blue Stones",
+      "audio": "/songs/happyrock.mp3"
+    },
+    {
+      "id": 9,
+      "nome": "Boderline",
+      "autor": "Tame Impala",
+      "audio": "/songs/happyrock.mp3"
+    },
+    {
+      "id": 10,
+      "nome": "You Give Love A Bad Name",
+      "autor": "Bon Jovi",
+      "audio": "/songs/happyrock.mp3"
     }
   ],
   "playlists": [
@@ -99,6 +141,25 @@
         1,
         2
       ]
+    },
+    {
+      "id": 9,
+      "idUsuario": 3,
+      "descricao": "Só as Lambadas",
+      "Capa": "/capas/Privada.png",
+      "musicas": [
+        1,
+        4
+      ]
+    },
+    {
+      "idUsuario": "3",
+      "descricao": "Pisadinhas Vol. 2",
+      "Capa": "/capas/Privada.png",
+      "musicas": [
+        1
+      ],
+      "id": 10
     }
   ],
   "usuarios": [
