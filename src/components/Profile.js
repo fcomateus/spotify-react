@@ -1,22 +1,22 @@
-import { React, useState, useEffect } from "react";
-import { eraseCookie, getCookie } from "../services/cookie";
-import api from "../services/api";
+import { React, useState, useEffect } from 'react';
+import { eraseCookie, getCookie } from '../services/cookie';
+import api from '../services/api';
 
 function Profile() {
   const [carregando, setCarregando] = useState(true);
   const [profile, setProfile] = useState({});
-  const cookie = getCookie("spotifycookie");
+  const cookie = getCookie('spotifycookie');
 
-  const [senha, setSenha] = useState("");
+  const [senha, setSenha] = useState('');
 
   useEffect(() => {
-    fetchProfile(parseInt(cookie));
+    fetchProfile(cookie);
   }, []);
 
   const fetchProfile = () => {
     setCarregando(true);
     api
-      .get(`/usuarios/${cookie}`) // porta do json-server
+      .get(`/user/${cookie}`) // porta do json-server
       .then((res) => {
         setProfile(res.data);
         setSenha(res.data.senha);
@@ -46,191 +46,191 @@ function Profile() {
 
         delete dadosEnviados.senhaAtual;
         api
-          .patch(`/usuarios/${cookie}`, dadosEnviados)
+          .patch(`/user/${cookie}`, dadosEnviados)
           .then((res) => {
             const data = res.data;
             console.log(data);
             setProfile(res.data);
-            document.location.reload()
+            document.location.reload();
           })
           .catch((error) => console.log(error));
       } else {
-        alert("ERROR! SENHA INCORRETA");
+        alert('ERROR! SENHA INCORRETA');
       }
     }
   };
 
   const logout = () => {
-    eraseCookie("spotifycookie");
-    window.location.href = "/";
+    eraseCookie('spotifycookie');
+    window.location.href = '/';
   };
 
   return (
-    <div className="container rounded bg-white mt-5 mb-5">
-      <div className="row">
-        <div className="col-md-3 border-right">
-          <div className="d-flex flex-column align-items-center text-center p-3 py-5">
+    <div className='container rounded bg-white mt-5 mb-5'>
+      <div className='row'>
+        <div className='col-md-3 border-right'>
+          <div className='d-flex flex-column align-items-center text-center p-3 py-5'>
             <img
-              className="rounded-circle mt-5"
-              width="150px"
-              src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+              className='rounded-circle mt-5'
+              width='150px'
+              src='https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
             ></img>
-            <span className="font-weight-bold">{profile.nome}</span>
-            <span className="text-black-50">{profile.email}</span>
+            <span className='font-weight-bold'>{profile.nome}</span>
+            <span className='text-black-50'>{profile.email}</span>
             <span> </span>
           </div>
         </div>
-        <div className="col-md-7 border-right">
-          <div className="p-3 py-5">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <h1 className="text-right">Perfil</h1>
+        <div className='col-md-7 border-right'>
+          <div className='p-3 py-5'>
+            <div className='d-flex justify-content-between align-items-center mb-3'>
+              <h1 className='text-right'>Perfil</h1>
             </div>
-            <div className="row mt-2">
-              <div className="col-md-6">
-                <label className="labels">Nome</label>
+            <div className='row mt-2'>
+              <div className='col-md-6'>
+                <label className='labels'>Nome</label>
                 <input
-                  type="text"
-                  className="form-control"
-                  placeholder="nome"
+                  type='text'
+                  className='form-control'
+                  placeholder='nome'
                   value={profile.nome}
                   onChange={handleChange}
-                  name="nome"
+                  name='nome'
                 ></input>
               </div>
-              <div className="col-md-6">
-                <label className="labels">Sobrenome</label>
+              <div className='col-md-6'>
+                <label className='labels'>Sobrenome</label>
                 <input
-                  type="text"
-                  className="form-control"
-                  placeholder="sobrenome"
+                  type='text'
+                  className='form-control'
+                  placeholder='sobrenome'
                   value={profile.sobrenome}
                   onChange={handleChange}
-                  name="sobrenome"
+                  name='sobrenome'
                 ></input>
               </div>
             </div>
-            <div className="row mt-3">
-              <div className="col-md-12">
-                <label className="labels">Data de Nascimento</label>
+            <div className='row mt-3'>
+              <div className='col-md-12'>
+                <label className='labels'>Data de Nascimento</label>
                 <input
-                  type="date"
-                  className="form-control"
-                  placeholder="dataDeNascimento"
+                  type='date'
+                  className='form-control'
+                  placeholder='dataDeNascimento'
                   value={profile.dataDeNascimento}
                   onChange={handleChange}
-                  name="dataDeNascimento"
+                  name='dataDeNascimento'
                 ></input>
               </div>
 
-              <div className="col-md-12">
-                <label className="labels genero">Gênero:</label>
-                <div className="form-check form-check-inline">
+              <div className='col-md-12'>
+                <label className='labels genero'>Gênero:</label>
+                <div className='form-check form-check-inline'>
                   <input
                     onChange={handleChange}
-                    className="form-check-input"
-                    type="radio"
-                    name="genero"
-                    id="genFeminino"
-                    value="feminino"
+                    className='form-check-input'
+                    type='radio'
+                    name='genero'
+                    id='genFeminino'
+                    value='feminino'
                   />
-                  <label className="form-check-label" htmlFor="genFeminino">
+                  <label className='form-check-label' htmlFor='genFeminino'>
                     Feminino
                   </label>
                 </div>
-                <div className="form-check form-check-inline">
+                <div className='form-check form-check-inline'>
                   <input
                     onChange={handleChange}
-                    className="form-check-input"
-                    type="radio"
-                    name="genero"
-                    id="genMasculino"
-                    value="masculino"
+                    className='form-check-input'
+                    type='radio'
+                    name='genero'
+                    id='genMasculino'
+                    value='masculino'
                   />
-                  <label className="form-check-label" htmlFor="genMasculino">
+                  <label className='form-check-label' htmlFor='genMasculino'>
                     Masculino
                   </label>
                 </div>
-                <div className="form-check form-check-inline">
+                <div className='form-check form-check-inline'>
                   <input
                     onChange={handleChange}
-                    className="form-check-input"
-                    type="radio"
-                    name="genero"
-                    id="genOutro"
-                    value="outro"
+                    className='form-check-input'
+                    type='radio'
+                    name='genero'
+                    id='genOutro'
+                    value='outro'
                   />
-                  <label className="form-check-label" htmlFor="genOutro">
+                  <label className='form-check-label' htmlFor='genOutro'>
                     Outro
                   </label>
                 </div>
               </div>
 
-              <div className="col-md-12">
-                <label className="labels">Email</label>
+              <div className='col-md-12'>
+                <label className='labels'>Email</label>
                 <input
-                  type="text"
-                  className="form-control"
-                  placeholder="email"
+                  type='text'
+                  className='form-control'
+                  placeholder='email'
                   value={profile.email}
                   onChange={handleChange}
-                  name="email"
+                  name='email'
                 ></input>
               </div>
-              <div className="col-md-12">
-                <label className="labels">Tipo do Plano</label>
+              <div className='col-md-12'>
+                <label className='labels'>Tipo do Plano</label>
                 <select
-                  className="select form-control"
-                  name="plano"
+                  className='select form-control'
+                  name='plano'
                   value={profile.plano}
                   onChange={handleChange}
                 >
-                  <option value="0" disabled>
+                  <option value='0' disabled>
                     Tipo de plano
                   </option>
-                  <option value="1">Free</option>
-                  <option value="2">Premium</option>
+                  <option value='1'>Free</option>
+                  <option value='2'>Premium</option>
                 </select>
               </div>
             </div>
-            <div className="row mt-3">
-              <div className="col-md-6">
-                <label className="labels">Senha Atual</label>
+            <div className='row mt-3'>
+              <div className='col-md-6'>
+                <label className='labels'>Senha Atual</label>
                 <input
-                  type="text"
-                  className="form-control"
-                  placeholder=""
+                  type='text'
+                  className='form-control'
+                  placeholder=''
                   onChange={handleChange}
-                  name="senhaAtual"
-                  id="senha"
+                  name='senhaAtual'
+                  id='senha'
                 ></input>
               </div>
-              <div className="col-md-6">
-                <label className="labels">Nova senha</label>
+              <div className='col-md-6'>
+                <label className='labels'>Nova senha</label>
                 <input
-                  type="text"
-                  className="form-control"
-                  placeholder=""
+                  type='text'
+                  className='form-control'
+                  placeholder=''
                   value={profile.novaSenha}
                   onChange={handleChange}
-                  name="senha"
+                  name='senha'
                 ></input>
               </div>
             </div>
-            <div className="mt-5 text-center">
+            <div className='mt-5 text-center'>
               <button
-                className="btn btn-primary profile-button"
+                className='btn btn-primary profile-button'
                 onClick={handleSubmit}
-                type="button"
+                type='button'
               >
                 Save Profile
               </button>
             </div>
             <div>
               <button
-                className="btn btn-primary profile-button"
+                className='btn btn-primary profile-button'
                 onClick={logout}
-                style={{ background: "red", border: "none" }}
-                type="button"
+                style={{ background: 'red', border: 'none' }}
+                type='button'
               >
                 Log out
               </button>

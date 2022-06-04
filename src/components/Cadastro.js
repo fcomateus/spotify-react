@@ -36,10 +36,10 @@ function Cadastro() {
     const dadosEnviados = { ...usuario };
     delete dadosEnviados.emailConf;
     api
-      .post('/usuarios', dadosEnviados)
+      .post('/user/signup', dadosEnviados)
       .then((res) => {
         const data = res.data;
-        setCookie('spotifycookie', data.id, 99);
+        setCookie('spotifycookie', data._id, 99);
         console.log(data);
         window.location.href = '/playlists';
       })
