@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './imagens/spotifylogo.svg';
 import { Link } from 'react-router-dom';
+import { getCookie } from '../services/cookie';
 
 function Footer() {
+  const [cookie, setCookie] = useState('');
+
+  useEffect(() => {
+    setCookie(getCookie('spotifycookie') || '');
+  }, []);
+
   return (
     <section id='footer' className='footer bg-dark navbar-fixed-bottom'>
       <div className='container'>
         <footer className='d-flex flex-wrap justify-content-between align-items-center py-3'>
           <div className='col-md-4 d-flex align-items-center'>
             <Link
-              to='/'
+              to={cookie ? '/playlists' : '/'}
               className='mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1'
             >
               <img src={logo} alt='Logo' height='24px' />

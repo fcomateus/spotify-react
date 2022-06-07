@@ -34,7 +34,7 @@ export default function Playlists() {
         </h1>
         <div className='row row-cols-4 m-0'>
           {playlists.map((playlist) => {
-            return (
+            return !playlist?.idUsuario ? (
               <div className='col pb-4 px-2 m-0' key={playlist._id}>
                 <Link to={`/playlists/${playlist._id}`}>
                   <img
@@ -45,6 +45,8 @@ export default function Playlists() {
                   />
                 </Link>
               </div>
+            ) : (
+              ''
             );
           })}
         </div>

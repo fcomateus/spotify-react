@@ -8,9 +8,9 @@ function Login() {
   const handleLogin = () => {
     const info = { ...userInfo };
     api
-      .post('/users', info)
+      .post('/user', info)
       .then((res) => {
-        setCookie('spotifycookie', res.data._id, 99);
+        setCookie('spotifycookie', res.data.user._id, 99);
         window.location.href = '/playlists';
       })
       .catch((error) => {

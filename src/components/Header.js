@@ -13,7 +13,7 @@ function Header() {
   return (
     <nav className='navbar navbar-expand-sm bg-dark navbar-dark'>
       <div className='container container-sm|md|lg|xl '>
-        <Link to='/'>
+        <Link to={cookie ? '/playlists' : '/'}>
           <img className='img-fluid' id='headerlogo' src={logo} alt='logo' />
         </Link>
 
@@ -31,7 +31,6 @@ function Header() {
               </Link>
             </li>
           )}
-
 
           <li className='nav-item'>
             {cookie ? (
